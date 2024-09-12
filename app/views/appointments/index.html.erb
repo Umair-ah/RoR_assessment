@@ -1,0 +1,36 @@
+<h1 class="text-3xl font-bold mb-8 text-center">Appointments</h1>
+
+<div class="my-8 text-center">
+  <%= link_to "New appointment", new_appointment_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+    <thead class="bg-gray-100 border-b border-gray-300">
+      <tr>
+        <th class="py-3 px-4 text-left text-gray-700 font-semibold">Doctor</th>
+        <th class="py-3 px-4 text-left text-gray-700 font-semibold">Patient</th>
+        <th class="py-3 px-4 text-left text-gray-700 font-semibold">Appointment Date & Time</th>
+        <th class="py-3 px-4 text-left text-gray-700 font-semibold">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @appointments.each do |appointment| %>
+        <tr class="border-b border-gray-300">
+          <td class="py-4 px-6 text-gray-700">
+            <%= appointment.doctor.email %>
+          </td>
+          <td class="py-4 px-6 text-gray-700">
+            <%= appointment.patient.name %>
+          </td>
+          <td class="py-4 px-6 text-gray-700">
+            <%= appointment.apptmt_date_time.strftime("%B %d, %Y %I:%M %p") %>
+          </td>
+          <td class="py-4 px-6 text-gray-700">
+            <%= link_to "Edit", edit_appointment_path(appointment), class: "text-blue-500 hover:text-blue-700 font-semibold" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

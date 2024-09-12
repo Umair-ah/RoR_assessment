@@ -1,24 +1,34 @@
-# README
+# Rails Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Rails application provides a comprehensive system for managing patient appointments, with distinct portals for receptionists and doctors. Below are the key features of the application:
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+### Unified Login Page
+- A single login page that provides access to both the receptionist and doctor portals.
 
-* System dependencies
+### Receptionist Portal
+- **Patient Management:** Ability to register new patients.
+- **CRUD Operations:** Perform Create, Read, Update, and Delete operations on patient records.
 
-* Configuration
+### Doctor Portal
+- **Patient View:** Access a list of registered patients.
+- **Data Visualization:** Display a graph showing the number of patients registered over time, using Chart.js and Stimulus for interactivity.
 
-* Database creation
+### Authorization
+- **Custom Logic:** Built-in authorization without relying on external gems.
 
-* Database initialization
+### Single Table Inheritance (STI)
+- **User Roles:** Implemented for different roles including Receptionist, Doctor, and Patient.
 
-* How to run the test suite
+### Many-to-Many Associations
+- **Relationships:** Manage associations between patients, doctors, and appointments.
 
-* Services (job queues, cache servers, search engines, etc.)
+### Patient History
+- **Visit Tracking:** Track and display the history of doctor visits for each patient, including dates and times.
 
-* Deployment instructions
+## Installation
 
-* ...
+Git Clone, change database username and password, rails db:setup, by default from seeds.rb 1 receptionist, 1 doctor and 1 patient is created!
+
+

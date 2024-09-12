@@ -1,5 +1,48 @@
 class DoctorsController < ApplicationController
   before_action :set_doctor, only: %i[edit update]
+  before_action :authenticate_receptionist, except: %i[patients_index]
+
+  def patients_index
+    if current_user&.doctor?
+      @docs_appointments = current_user.appointments.order(created_at: :desc)
+  
+      @patients_per_day = current_user.appointments
+        .joins(:patient)
+        .group("DATE(appointments.apptmt_date_time)")  
+        .count  
+  
+      @chart_data = {
+        labels: @patients_per_day.keys.map { |date| date.strftime("%B %d, %Y") },  
+        datasets: [{
+          label: 'Patients Registered per Day',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',  
+          borderColor: 'rgba(75, 192, 192, 1)',       
+          borderWidth: 1,
+          data: @patients_per_day.values  
+        }]
+      }
+  
+      @chart_options = {
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Patients'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Days'
+            }
+          }
+        }
+      }
+    else
+      redirect_to root_path, alert: "You are not authorized as a doctor!"
+    end
+  end
 
   def index
     @doctors = Doctor.all
@@ -43,5 +86,7 @@ class DoctorsController < ApplicationController
   def set_doctor
     @doctor = Doctor.find(params[:id])
   end
+
+  
 
 end
