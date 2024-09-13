@@ -13,7 +13,9 @@
           <p class="text-lg font-medium text-gray-800">Met with <%= doc.email %>:</p>
           <ul class="list-disc pl-5 mt-2 text-gray-700">
             <% doc.appointments.each do |aptmt| %>
-              <li>On <%= aptmt.apptmt_date_time.strftime("%B %d, %Y %I:%M %p") %></li>
+              <% if aptmt.patient == @patient %>
+                <li>On <%= aptmt.apptmt_date_time.strftime("%B %d, %Y %I:%M %p") %></li>
+              <% end %>
             <% end %>
           </ul>
         </div>
